@@ -18,7 +18,7 @@ let operatorVal;
 let counter = 1;
 let firstNumber = 0;
 let secondNumber = 0;
-let operatorPressed=false;
+let equalPressed=false;
 
 const number = document.querySelectorAll(".number");
 const operator = document.querySelectorAll(".operator");
@@ -41,6 +41,7 @@ operator.forEach(function (operator) {
 })
 equal.addEventListener("click", getResult)
 del.addEventListener("click", deleteLast)
+decimal.addEventListener("click", setDecimal)
 
 function clearAll() {
     currentNumber = 0;
@@ -48,28 +49,21 @@ function clearAll() {
     firstNumber = 0;
     secondNumber = 0;
     operatorVal = "";
-    operatorPressed=false;
+    equalPressed=false;
 }
 
 function inputNumber() {
-    if(!operatorPressed){
+    if (equalPressed){
+        display.textContent=0;
+        equalPressed=false;
+    }
+    else{
     if (display.textContent.charAt(0) === "0") {
         display.textContent = display.textContent.substring(1);
     }
     if (display.textContent.length <= 30) {
         display.textContent += this.textContent;
     }}
-    else{
-        //display.textContent=0;
-        operatorPressed=false;
-        if (display.textContent.charAt(0) === "0") {
-            display.textContent = display.textContent.substring(1);
-        }
-        if (display.textContent.length <= 30) {
-            display.textContent += this.textContent;
-        }
-    
-    }
 
 }
 function deleteLast() {
@@ -86,9 +80,11 @@ function getSquare() {
     display.textContent = "";
     operatorVal = "**";
 }
+
 function getOperator() {
     firstNumber = display.textContent;
     operatorVal = this.textContent;
+    display.textContent="";
 }
 function getRoot() {
     firstNumber = display.textContent;
@@ -102,7 +98,7 @@ function getResult() {
     let number1 = parseFloat(firstNumber);
     let number2 = parseFloat(secondNumber);
     let result;
-    operatorPressed=true;
+    equalPressed=true;
     switch (operatorVal) {
         case "**":
             result = number1 ** number2;
@@ -124,11 +120,12 @@ function getResult() {
         default:
     }
     if (result % 1 != 0) {
-        display.textContent = result.toFixed(12);
+        display.textContent = result.toFixed(12).toString();
     }
-
-    else if (result === Infinity) {
-        display.textContent = "Error";
-    }
-    display.textContent = BigInt(result);
+    operatorVal="";
+    display.textContent = result.toString();
+    
+}
+function setDecimal(){
+    if(!display.textContent.includes(".")){display.textContent+=decimal.textContent;}
 }

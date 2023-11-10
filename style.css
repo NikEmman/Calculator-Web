@@ -22,21 +22,24 @@ body{
 }
 .container{    
     padding: 2em;
-    width: 40%;
+    width: 30em;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 5px;
     border: 2px solid black;
-    text-align: center;
 }
-.container div{
+.container div,.display{
     min-height: 4em;
     border: 1px solid darkslategray;
     border-radius: 5px;
 }
+.container div{
+
+    font-weight: 700;
+    vertical-align: middle;
+}
 .display{
     font-size: x-large;
-    text-align: end;
     background-color: beige;
     overflow-wrap: break-word;
 }
