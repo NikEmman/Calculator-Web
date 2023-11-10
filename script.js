@@ -160,3 +160,32 @@
 //     }
 // }
 
+let currentNumber = "0";
+//let operator;
+let counter = 1;
+let firstNumber=0;
+let secondNumber=0;    
+
+const number = document.querySelectorAll(".number");
+const operator = document.querySelector(".operator");
+const decimal = document.querySelector(".decimal");
+const equal = document.querySelector(".equal");
+const square = document.querySelector(".square");
+const sqrRoot = document.querySelector(".sqrRoot");
+const clear = document.querySelector(".clear");
+const del = document.querySelector(".delete");
+const display = document.querySelector(".display");
+
+number.forEach(function(number){
+number.addEventListener("click", inputNumber)})
+clear.addEventListener("click",clearAll)
+
+function clearAll(){
+    currentNumber =0;
+    display.textContent=0;
+}
+
+function inputNumber(){
+currentNumber += this.textContent;
+display.textContent = currentNumber;
+}
