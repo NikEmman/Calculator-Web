@@ -1,20 +1,20 @@
 // public partial class MainPage : ContentPage
 // {
-	   
+
 //     string currentNumber = "0";
 //     string operator;
 //     int counter = 1;
 //     double firstNumber=0;
 //     double secondNumber=0;    
-    
 
-   
+
+
 // 	public MainPage()
 // 	{
 // 		InitializeComponent();
 // 	}
-	
-	
+
+
 //     private void Clear_Clicked(object sender, EventArgs e)
 //     {
 //         //Deletes-resets all
@@ -22,7 +22,7 @@
 //         Total.Text = "0";
 //         counter = 1;
 //         operator = null;
-		
+
 //     }
 
 //     private void Del_Clicked(object sender, EventArgs e)
@@ -46,10 +46,10 @@
 //             currentNumber = "";         
 //            // counter = 1;
 //         }
-        
+
 //     }    
-    
-    
+
+
 //     private void Operator_Clicked(object sender, EventArgs e)
 //     {
 //         StoreNumber(Total.Text);
@@ -58,7 +58,7 @@
 //         counter = -1;
 //         Total.Text = operator;
 //         currentNumber = "";
-       
+
 //     }
 
 //     private void EqualsBtn_Clicked(object sender, EventArgs e)
@@ -71,20 +71,16 @@
 //             operator = null;
 //             counter = 1;
 //         }
-        
-                       
+
+
 //     }
-    
+
 
 //     private void Number_Clicked(object sender, EventArgs e)
 //     {
-//         //Gets the text on the button
-//         // Its typed this way because we got many buttons that use the same even handler, namely "Number_Clicked"
 //         Button button = (Button)sender;
 //         string  pressed = button.Text;
-        
-        
-//         // Don want our numbers to start with a zero, also when hitting zero buttons it wont print lots of zeros, will stick to one
+
 //         if (Total.Text.Substring(0)=="0" || currentNumber.Substring(0)=="0")
 //         {
 //             currentNumber = "";
@@ -117,8 +113,8 @@
 //             Total.Text = currentNumber;
 //         }
 //     }
-    
-    
+
+
 //     private void StoreNumber (string text)
 //     {
 //         // A method to turn the typed number strings to doubles.
@@ -135,7 +131,7 @@
 
 //     public double DoCalculation()
 //     {
-       
+
 //         double result = 0;
 
 //         switch (operator)
@@ -154,20 +150,20 @@
 //                 result = firstNumber / secondNumber;
 //                 break;
 //         }
-        
+
 //         Math.Round(result,15);
 //         return result;
 //     }
 // }
 
 let currentNumber = "0";
-//let operator;
+let operatorVal;
 let counter = 1;
-let firstNumber=0;
-let secondNumber=0;    
+let firstNumber = 0;
+let secondNumber = 0;
 
 const number = document.querySelectorAll(".number");
-const operator = document.querySelector(".operator");
+const operator = document.querySelectorAll(".operator");
 const decimal = document.querySelector(".decimal");
 const equal = document.querySelector(".equal");
 const square = document.querySelector(".square");
@@ -176,16 +172,86 @@ const clear = document.querySelector(".clear");
 const del = document.querySelector(".delete");
 const display = document.querySelector(".display");
 
-number.forEach(function(number){
-number.addEventListener("click", inputNumber)})
-clear.addEventListener("click",clearAll)
+number.forEach(function (number) {
+    number.addEventListener("click", inputNumber)
+})
+clear.addEventListener("click", clearAll)
+square.addEventListener("click", getSquare)
+sqrRoot.addEventListener("click", getRoot)
+operator.forEach(function (operator) {
+    operator.addEventListener("click", getOperator)
+})
+equal.addEventListener("click", getResult)
 
-function clearAll(){
-    currentNumber =0;
-    display.textContent=0;
+function clearAll() {
+    currentNumber = 0;
+    display.textContent = 0;
+    firstNumber = 0;
+    secondNumber = 0;
+    operatorVal = "";
 }
 
-function inputNumber(){
-currentNumber += this.textContent;
-display.textContent = currentNumber;
+function inputNumber() {
+    if (display.textContent.charAt(0) === "0") {
+        display.textContent = display.textContent.substring(1);
+    }
+    if (display.textContent.length <= 30) {
+        display.textContent += this.textContent;
+    }
+
+}
+
+function getSquare() {
+    firstNumber = display.textContent;
+    display.textContent = "";
+    operatorVal = "**";
+}
+function getOperator() {
+    firstNumber = display.textContent;
+    display.textContent = "";
+    operatorVal = this.textContent;
+}
+function getRoot() {
+    firstNumber = display.textContent;
+    display.textContent = "";
+    operatorVal = "root";
+}
+
+
+
+
+
+function getResult() {
+    secondNumber = display.textContent;
+    let number1 = parseFloat(firstNumber);
+    let number2 = parseFloat(secondNumber);
+    let result;
+    switch (operatorVal) {
+        case "**":
+            result = number1 ** number2;
+            break;
+        case "*":
+            result = number1 * number2;
+            break;
+        case "+":
+            result = number1 + number2;
+            break;
+        case "-":
+            result = number1 - number2;
+            break;
+        case "/":
+            result = number1 / number2;
+            break;
+        case "root":
+            result = Math.pow(number1, 1 / number2)
+        default:
+    }
+    if (result % 1 != 0) {
+        display.textContent = result.toFixed(12);
+    }
+
+    else if (result === Infinity) {
+        display.textContent = "Error";
+    }
+    display.textContent = BigInt(result);
 }

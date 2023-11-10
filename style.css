@@ -38,4 +38,5 @@ body{
     font-size: x-large;
     text-align: end;
     background-color: beige;
+    overflow-wrap: break-word;
 }
