@@ -8,9 +8,13 @@
 :root{
     --color-number: lightgray;
     --color-operator:lightblue;
-    --color-clear:orange;
+    --color-sqr:orange;
     --color-number-hover:darkgray;
     --color-operator-hover:darkblue;
+    --color-display: darkslategray;
+    --color-del:red;
+    --color-del-hover:rgb(224, 85, 85);
+    --color-sqr-hover:rgb(217, 185, 127);
 }
 body{
     display: flex;
@@ -21,25 +25,62 @@ body{
     grid-column: span 4;
 }
 .container{    
-    padding: 2em;
+    padding: 1.5em;
     width: 30em;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 5px;
-    border: 2px solid black;
+    border: 3px solid black;
+    background-color: rgb(65, 63, 63);
+    
 }
 .container div,.display{
     min-height: 4em;
-    border: 1px solid darkslategray;
+    border: 1px solid var(--color-display);
     border-radius: 5px;
 }
 .container div{
-
+    display: flex;
     font-weight: 700;
     vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+}
+sub {
+    transform: translateY(-6px);
 }
 .display{
     font-size: x-large;
     background-color: beige;
     overflow-wrap: break-word;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 0.5em;
+}
+.operator,.equal{
+    background-color: var(--color-operator);
+}
+.operator:hover, .equal:hover{
+    background-color: var(--color-operator-hover);
+    color: white;
+}
+.sqr{
+    background-color: var(--color-sqr);
+}
+.sqr:hover{
+    background-color: var(--color-sqr-hover);
+}
+.del{
+    background-color: var(--color-del);
+    color: white;
+}
+.del:hover{
+    background-color: var(--color-del-hover);
+}
+.number, .decimal{
+    background-color: var(--color-number);
+}
+.number:hover, .decimal:hover{
+    background-color: var(--color-number-hover);
 }
